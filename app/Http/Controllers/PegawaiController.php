@@ -172,7 +172,7 @@ class PegawaiController extends Controller
             'tempat_tugas' => 'required|string|max:100|regex:/^[a-zA-Z\s]+$/|not_regex:/[<>]/',
             'unit_kerja' => 'required|string|max:100|regex:/^[a-zA-Z\s]+$/|not_regex:/[<>]/',
             'npwp' => 'required|numeric|digits:15|regex:/^[0-9]+$/|not_regex:/[<>]/',
-            'photo'=> 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'nip.required' => 'NIP wajib diisi',
             'nip.numeric' => 'NIP harus berupa angka',
@@ -265,6 +265,9 @@ class PegawaiController extends Controller
                 ->withInput();
         }
         $validatedData = $validator->validated();
+        if(!isset($validatedData['photo'])) {
+            $validatedData['photo'] = NULL;
+        }
         if ($request->file('photo')) {
         if(!empty($pegawai->photo)){
             $imagepath = public_path('upload/' . $pegawai->photo);
@@ -282,7 +285,7 @@ class PegawaiController extends Controller
             'tanggal_lahir'=>$validatedData['tanggal_lahir'],
             'jenis_kelamin'=>$validatedData['jenis_kelamin'],
             'agama'=>$validatedData['agama'],
-            'photo' => $validatedData['photo'],
+            'photo' => $validatedData['photo'] ?? $pegawai->photo,
         ]);
         $pegawai->pegawai->update([
             'golongan'=>$validatedData['golongan'],

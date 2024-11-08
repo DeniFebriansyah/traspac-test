@@ -16,7 +16,7 @@
     <meta name="author" content="Deni Febriansyah">
     <meta name="keyword"
         content="Sistem informasi data kepegawaian, pegawai, kepegawaian, data pegawai, data kepegawaian">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <title>Login</title>
     <link href="{{ asset('css/coreui.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
